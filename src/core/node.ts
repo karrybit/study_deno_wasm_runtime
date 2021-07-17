@@ -181,10 +181,15 @@ export class ExprNode {
 }
 
 const Op = {
-    I32Const: 0x41,
+    End: 0x0b,
     LocalGet: 0x20,
     LocalSet: 0x21,
-    End: 0x0b,
+    I32Const: 0x41,
+    I32Eqz: 0x45,
+    I32LtS: 0x48,
+    I32GeS: 0x4e,
+    I32Add: 0x6a,
+    I32RemS: 0x6f,
 } as const
 type Op = typeof Op[keyof typeof Op];
 
@@ -193,12 +198,22 @@ export class InstrNode {
 
     static create(opcode: Op): InstrNode | null {
         switch (opcode) {
-            case Op.I32Const:
-                return new I32ConstInstrNode(opcode)
             case Op.LocalGet:
                 return new LocalGetInstrNode(opcode)
             case Op.LocalSet:
                 return new LocalSetInstrNode(opcode)
+            case Op.I32Const:
+                return new I32ConstInstrNode(opcode)
+            case Op.I32Add:
+                return new I32AddInstrNode(opcode)
+            case Op.I32Eqz:
+                return new I32EqzInstrNode(opcode)
+            case Op.I32LtS:
+                return new I32LtSInstrNode(opcode)
+            case Op.I32GeS:
+                return new I32GeSInstrNode(opcode)
+            case Op.I32RemS:
+                return new I32RemSInstrNode(opcode)
             default:
                 return null
         }
@@ -267,3 +282,9 @@ export class ExportDescNode {
         this.index = buffer.readU32()
     }
 }
+
+export class I32AddInstrNode extends InstrNode {}
+export class I32EqzInstrNode extends InstrNode {}
+export class I32LtSInstrNode extends InstrNode {}
+export class I32GeSInstrNode extends InstrNode {}
+export class I32RemSInstrNode extends InstrNode {}
