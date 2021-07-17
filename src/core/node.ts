@@ -24,6 +24,11 @@ export class ModuleNode {
         section.load(sectionBuffer)
         return section
     }
+
+    store(buffer: Buffer) {
+        if (this.magic) buffer.writeBytes(this.magic)
+        if (this.version) buffer.writeBytes(this.version)
+    }
 }
 
 abstract class SectionNode {
