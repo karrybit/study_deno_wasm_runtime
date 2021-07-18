@@ -454,6 +454,12 @@ export class BlockInstrNode extends InstrNode {
         this.instrs = new ExprNode()
         this.instrs.load(buffer)
     }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeByte(this.blockType)
+        this.instrs.store(buffer)
+    }
 }
 
 export class LoopInstrNode extends InstrNode {
@@ -465,6 +471,12 @@ export class LoopInstrNode extends InstrNode {
         this.instrs = new ExprNode()
         this.instrs.load(buffer)
     }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeByte(this.blockType)
+        this.instrs.store(buffer)
+    }
 }
 
 export class BrInstrNode extends InstrNode {
@@ -473,6 +485,11 @@ export class BrInstrNode extends InstrNode {
     load(buffer: Buffer) {
         this.labelIdx = buffer.readU32()
     }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeU32(this.labelIdx)
+    }
 }
 
 export class BrIfInstrNode extends InstrNode {
@@ -480,6 +497,11 @@ export class BrIfInstrNode extends InstrNode {
 
     load(buffer: Buffer) {
         this.labelIdx = buffer.readU32()
+    }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeU32(this.labelIdx)
     }
 }
 
