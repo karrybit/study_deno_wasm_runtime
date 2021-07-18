@@ -32,6 +32,22 @@ export class ModuleNode {
             section.store(buffer)
         }
     }
+
+    get typeSection(): TypeSectionNode {
+        return this.sections.find(sec => sec instanceof TypeSectionNode) as TypeSectionNode
+    }
+
+    get exportSection(): ExportSectionNode {
+        return this.sections.find(sec => sec instanceof ExportSectionNode) as ExportSectionNode
+    }
+
+    get functionSection(): FunctionSectionNode {
+        return this.sections.find(sec => sec instanceof FunctionSectionNode) as FunctionSectionNode
+    }
+
+    get codeSection(): CodeSectionNode {
+        return this.sections.find(sec => sec instanceof CodeSectionNode) as CodeSectionNode
+    }
 }
 
 abstract class SectionNode {
