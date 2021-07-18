@@ -340,6 +340,11 @@ export class LocalGetInstrNode extends InstrNode {
     load(buffer: Buffer) {
         this.localIdx = buffer.readU32()
     }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeU32(this.localIdx)
+    }
 }
 
 export class LocalSetInstrNode extends InstrNode {
@@ -347,6 +352,11 @@ export class LocalSetInstrNode extends InstrNode {
 
     load(buffer: Buffer) {
         this.localIdx = buffer.readU32()
+    }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeU32(this.localIdx)
     }
 }
 
