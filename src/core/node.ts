@@ -432,6 +432,14 @@ export class IfInstrNode extends InstrNode {
             this.elseInstrs.load(buffer)
         }
     }
+
+    store(buffer: Buffer) {
+        super.store(buffer)
+        buffer.writeByte(this.blockType)
+        this.thenInstrs.endOp = this.elseInstrs ? Op.Else : Op.End
+        this.thenInstrs.store(buffer)
+        this.elseInstrs?.store(buffer)
+    }
 }
 
 type S33 = number
