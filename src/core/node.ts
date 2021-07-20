@@ -1,4 +1,5 @@
 import { Buffer } from "./buffer.ts"
+import { Instance } from './instance.ts';
 
 export class ModuleNode {
     magic?: Uint8Array
@@ -47,6 +48,12 @@ export class ModuleNode {
 
     get codeSection(): CodeSectionNode {
         return this.sections.find(sec => sec instanceof CodeSectionNode) as CodeSectionNode
+    }
+
+    instantiate(): Instance {
+        const inst = new Instance(this)
+        inst.compile()
+        return inst
     }
 }
 
